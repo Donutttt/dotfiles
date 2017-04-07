@@ -41,7 +41,7 @@ filetype off                  " required
 set tags+=tags;
 
 " set the runtime path to include Vundle and initialize
-set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
+set rtp+=$HOME/vim_install/Vim/vimfiles/bundle/Vundle.vim
 call vundle#begin('$USERPROFILE/vimfiles/bundle/')
 
 " let Vundle manage Vundle, required
@@ -174,6 +174,22 @@ let g:javascript_plugin_jsdoc = 1
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
 
+" allow fugitive to display in statusline
+if has('statusline')
+  set laststatus=2
+  " Broken down into easily includeable segments
+  set statusline=%<%f\    " Filename
+  set statusline+=%w%h%m%r " Options
+  set statusline+=%{fugitive#statusline()} "  Git Hotness
+  set statusline+=\ [%{&ff}/%Y]            " filetype
+  set statusline+=\ [%{getcwd()}]          " current dir
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+  let g:syntastic_enable_signs=1
+  set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+endif
+
 " aiming to speed up ctrlp
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -181,6 +197,10 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ 
 \ }
+
+" enable ctrlp caching
+let g:ctrlp_use_caching = 1
+let g:ctrlp_clear_cache_on_exit = 0
 
 " enable nerdtree line numbers
 let NERDTreeShowLineNumbers=1
@@ -198,9 +218,6 @@ set encoding=utf-8
 
 " rainbow parentheses
 let g:rainbow_active = 1
-
-" break bad vim habits
-let g:hardtime_default_on = 1
 
 " stop stupid spelling mistakes
 ab voucher voucher
@@ -221,5 +238,6 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-surround'
 Plugin 'kien/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'takac/vim-hardtime'
 Plugin 'godlygeek/tabular'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
