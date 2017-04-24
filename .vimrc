@@ -137,8 +137,28 @@ let g:javascript_plugin_jsdoc = 1
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
 
-" want hardtime on
-let g:hardtime_default_on = 1
+" close ycm window
+let g:ycm_autoclose_preview_window_after_completion=1
+
+" enable ctrlp caching
+let g:ctrlp_use_caching = 1
+let g:ctrlp_clear_cache_on_exit = 0
+
+" allow fugitive to display in statusline
+if has('statusline')
+ set laststatus=2
+ " Broken down into easily includeable segments
+ set statusline=%<%f\    " Filename
+ set statusline+=%w%h%m%r " Options
+ set statusline+=%{fugitive#statusline()} "  Git Hotness
+ set statusline+=\ [%{&ff}/%Y]            " filetype
+ set statusline+=\ [%{getcwd()}]          " current dir
+ set statusline+=%#warningmsg#
+ set statusline+=%{SyntasticStatuslineFlag()}
+ set statusline+=%*
+ let g:syntastic_enable_signs=1
+ set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right
+endif
 
 " typescript options
 let g:typescript_compiler_binary = 'tsc'
@@ -185,7 +205,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-surround'
-Plugin 'takac/vim-hardtime'
+Plugin 'flazz/vim-colorschemes'
 Plugin 'airblade/vim-gitgutter'
 
 "nerdtree settings
