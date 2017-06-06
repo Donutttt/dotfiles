@@ -96,7 +96,6 @@ set sw=1 " to prevent > from going too far
 set cursorline
 filetype indent on " load filetype-specific indent files
 set wildmenu " visual autocomplete for command menu
-set lazyredraw " redraw only when needed
 set showmatch " highlight matching [{[]}]
 
 "fold options
@@ -120,10 +119,13 @@ set guioptions-=T
 set guioptions-=r
 set guioptions-=L
 
+" language syntax
+let python_highlight_all=1
+
 "shortcuts
 let mapleader=","
 nmap <leader>nt :NERDTreeToggle<cr>
-nmap <leader>mv :e $HOME/.vimrc<cr>
+nmap <leader>mv :tabnew $HOME/.vimrc<cr>
 inoremap jk <esc>
 nmap <leader>ns <C-w>w
 nnoremap <C-J> <C-W><C-J>
@@ -136,6 +138,22 @@ nmap <leader>px :tabclose<cr>
 let g:javascript_plugin_jsdoc = 1
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
+nmap <F8> :TagbarToggle<cr>
+nmap <Leader>pt :CtrlPTag<cr>
+nmap <Leader>st :SyntasticToggleMode<cr>
+
+
+" syntax checking
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_javascript_checkers = ['jshint']
 
 " close ycm window
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -207,6 +225,11 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'godlygeek/csapprox'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
+Plugin 'majutsushi/tagbar'
 
 "nerdtree settings
 let NERDTreeIgnore = ['\.pyc$']
